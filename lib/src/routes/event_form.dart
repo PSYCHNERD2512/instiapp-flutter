@@ -562,6 +562,7 @@ class _EventFormState extends State<EventForm> {
   // ];
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   List<Body> bodyOptions = [];
+  List<Body> VerBodyOptions = [];
   List<Venue> venueOptions = [];
   List<Body> creatorBodies = [];
   List<UserTagHolder> tags = [];
@@ -644,6 +645,10 @@ class _EventFormState extends State<EventForm> {
       }
     }
     bodyOptions = tempbodyOptions;
+
+() async{
+      VerBodyOptions = await bloc.getPriviligedBodies();
+    }();
     () async {
       // Future<List<Body>> tempBodies= await bloc.client.getAllBodies(widget.cookie);
       List<Venue> tempVenues = await bloc.client.getAllVenues();
@@ -926,7 +931,7 @@ class _EventFormState extends State<EventForm> {
                             .map((e) => e.bodyName!)
                             .toList()
                             .join(',')),
-                    items: [...bodyOptions]
+                    items: [...VerBodyOptions]
                         .map((e) => MultiSelectItem<Body?>(e, e.bodyName!))
                         .toList(),
                     onConfirm: (values) {

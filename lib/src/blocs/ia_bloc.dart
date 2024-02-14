@@ -325,6 +325,11 @@ class InstiAppBloc {
   }
 
   // Event bloc
+  Future<List<Body>> getPriviligedBodies() async{
+  return await client.getBodiesWithPrivilege(getSessionIdHeader());
+
+  }
+  
   Future<void> updateEvents() async {
     var newsFeedResponse = await client.getNewsFeed(getSessionIdHeader());
     _events = newsFeedResponse.events ?? [];
